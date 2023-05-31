@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 01:30:59 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 22:42:14 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:27:43 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void	draw_floor_ceiling(t_game *game);
 void 	draw_wall(t_game *game);
 
 /* UTILS */
+bool	arg_check(int argc, char **argv);
+void	init_zbuffer(t_game *game);
+void	init_vars(t_game *game);
 int		is_allowed(char c);
 int		file_exists(char *s);
 
@@ -123,7 +126,7 @@ bool	init_images(t_game *game, t_parse *data);
 
 /* MAP VALIDATING */
 char	*get_line(int fd, char *line);
-//void	set_map_error(t_parse *data);
+bool	check_line(char *line, int i, t_parse *data);
 int		line_has_invalid_chars(char *line);
 int		map_checks(t_parse *data, int i, t_game *game);
 int		line_cotains_only_spaces(char *line);
@@ -136,6 +139,6 @@ void	free_char_array(char **array);
 int		it_can_be_opened(char *file);
 
 /* UTILS */
-char	**copy_2d_char_array(char **array);
+char	*copy_map_line_fixed(char *content, t_parse *data);
 void	ft_print_2d_char_array(char **array_2d);
 #endif

@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:09 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 21:45:32 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:53:01 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	invalid_attribute(char *line)
 		&& ft_strncmp(line, "C", 1) != 0)
 		flag++;
 	if (flag != 0)
-		exit_error("Error: Wrong attributes");
+		exit_error("Error:\nWrong attributes");
 	return (false);
 }
 

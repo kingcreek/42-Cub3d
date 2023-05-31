@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 07:45:25 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 22:35:25 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:00:29 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_parse_data(t_parse *data)
 	data->c_color[2] = -1;
 	data->reading_pos = 0;
 	data->map_length = 0;
+	data->line_size = 0;
 }
 
 void	ft_print_2d_char_array(char **array_2d)

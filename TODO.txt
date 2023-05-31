@@ -6,23 +6,4 @@ Fix diagonal direction: when i press ( w + (d or a)) some with backward, the sum
 need divide speed multiplier /2 if one of both keys are pressed, but not when i press both
 
 
-// crash when one row dont have some ammount of lines than others bt not always, check if the all lines in char array of map have some lenght
-map example, maybe fill all not spaces with "1"
-
-        111111111111111111111111111
-        1000000000110000000000001
-        1011000001110000000000001
-        10010000000000000000000W1
-111111111011000001110000000000001
-1
-100000000011000001110111111111111
-11110111111111011100000010001
-11110111111111011101010010001
-11000000110101011100000010001
-10000000000000001100000010001    1
-10000000000000001101010010001   101
-110000011101010111110111100011   1
-11110111 1110101 101111010001
-11111111 1111111 111111111111
-
-crash in line 17, 
+//crash when first item in each line are not 1, first line or last line are not 1

@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:47:54 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 21:41:47 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:53:01 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	has_duplicate_rgb(char *line)
 	else if (line[0] == 'C')
 		c++;
 	else if (f != 1 || c != 1)
-		exit_error("Error: RGB duplicate value");
+		exit_error("Error:\nRGB duplicate value");
 	return (false);
 }
 
@@ -71,7 +71,7 @@ int	valid_rgb(char **rgb)
 	if ((ft_atoi(rgb[0]) > 255 || ft_atoi(rgb[0]) < 0)
 		|| (ft_atoi(rgb[1]) > 255 || ft_atoi(rgb[1]) < 0)
 		|| (ft_atoi(rgb[2]) > 255 || ft_atoi(rgb[2]) < 0))
-		exit_error("Error: RGB Out of range");
+		exit_error("Error:\nRGB Out of range");
 	else
 		return (true);
 }

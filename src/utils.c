@@ -6,33 +6,15 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 04:13:37 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/27 16:22:33 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:28:57 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	rgb(int r, int g, int b, int a) //uint32_t
+int	rgb(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-char	*ft_strdup2(char *str, int start, int end)
-{
-	char	*result;
-	int		i;
-
-	result = malloc(sizeof(char) * (end - start + 1));
-	if (result == NULL)
-	{
-		printf("MALLOC_FAIL");
-		return (NULL);
-	}
-	i = -1;
-	while (start + ++i != end)
-		result[i] = str[i + start];
-	result[i] = '\0';
-	return (result);
 }
 
 int	commacounter(char *line)
@@ -56,3 +38,49 @@ int	commacounter(char *line)
 	return (true);
 }
 
+bool	arg_check(int argc, char **argv)
+{
+	char	*error;
+
+	error = NULL;
+	if (argc != 2)
+		error = "Error:\nToo many arguments\n";
+	else
+		if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4) != 0)
+			error = "Error:\nInvalid file extension\n";
+	if (error)
+	{
+		write(2, error, ft_strlen(error));
+		return (false);
+	}
+	return (true);
+}
+
+void	init_zbuffer(t_game *game)
+{
+	int	i;
+
+	game->zbuffer = (int **)ft_calloc(W_HEIGH, sizeof(int *));
+	if (game->zbuffer == NULL)
+		exit_error("Error:\nWhile init zbuffer");
+	i = 0;
+	while (i < W_HEIGH)
+	{
+		game->zbuffer[i] = (int *)ft_calloc(W_WIDTH, sizeof(int));
+		if (game->zbuffer[i] == NULL)
+			exit_error("Error:\nWhile init zbuffer");
+		i++;
+	}
+}
+
+void	init_vars(t_game *game)
+{
+	game->player.planeX = 0.0;
+	game->player.planeY = 0.66;
+	game->keys.key_w = 0;
+	game->keys.key_a = 0;
+	game->keys.key_s = 0;
+	game->keys.key_d = 0;
+	game->keys.key_left = 0;
+	game->keys.key_right = 0;
+}

@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:57:44 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 11:45:05 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:26:00 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	draw_floor_ceiling(t_game *game)
 {
-	
 	int	y;
 	int	x;
-	int color;
+	int	color;
 
 	y = 0;
 	while (y < W_HEIGH)

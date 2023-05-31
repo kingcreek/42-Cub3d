@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 02:29:28 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/28 18:35:13 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:49:30 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct	s_parse
 	int		f_color[3];
 	int		c_color[3];
 	int		map_length;
+	int		line_size;
 	char	**raw_map;
 }				t_parse;
 

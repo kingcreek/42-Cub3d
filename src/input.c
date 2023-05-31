@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 02:14:36 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 22:51:30 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:25:05 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	process_ad_position(t_game *game, t_player *player)
 	char	**map;
 
 	map = game->map.map;
-	if (game->keys.key_a)
+	if (game->keys.key_d)
 	{
 		if (ft_strchr("NESW0", map[(int)(player->posY + \
 			player->dirX * MOVE_SPEED)][(int)(player->posX)]) != NULL)
@@ -26,7 +26,7 @@ void	process_ad_position(t_game *game, t_player *player)
 			player->dirY * MOVE_SPEED)]) != NULL)
 			player->posX -= player->dirY * MOVE_SPEED;
 	}
-	if (game->keys.key_d)
+	if (game->keys.key_a)
 	{
 		if (ft_strchr("NESW0", map[(int)(player->posY - \
 			player->dirX * MOVE_SPEED)][(int)(player->posX)]) != NULL)
@@ -67,7 +67,7 @@ void	process_angle(t_game *game, t_player *p)
 	double	old_dirx;
 	double	old_planex;
 
-	if (game->keys.key_left)
+	if (game->keys.key_right)
 	{
 		old_dirx = p->dirX;
 		p->dirX = p->dirX * cos(ROT_SPEED) - p->dirY * sin(ROT_SPEED);
@@ -76,7 +76,7 @@ void	process_angle(t_game *game, t_player *p)
 		p->planeX = p->planeX * cos(ROT_SPEED) - p->planeY * sin(ROT_SPEED);
 		p->planeY = old_planex * sin(ROT_SPEED) + p->planeY * cos(ROT_SPEED);
 	}
-	else if (game->keys.key_right)
+	else if (game->keys.key_left)
 	{
 		old_dirx = p->dirX;
 		p->dirX = p->dirX * cos(-ROT_SPEED) - p->dirY * sin(-ROT_SPEED);

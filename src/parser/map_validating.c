@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:04 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 21:45:06 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:24:50 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	map_validathor(char *map_file, t_parse *data, int fd, t_game *game)
 {
 	int			i;
-	static int	k = 0;
+	static int	k;
 	char		*line;
 
 	line = get_next_line(fd);
@@ -23,14 +23,17 @@ int	map_validathor(char *map_file, t_parse *data, int fd, t_game *game)
 		line = get_line(fd, line);
 	data->raw_map = malloc(sizeof(char *) * (data->map_length + 1));
 	if (data->raw_map == NULL)
-		exit_error("Error: Malloc failed");
+		exit_error("Error:\nMalloc failed");
 	i = 0;
 	line = get_line(fd, line);
 	while (line != NULL)
 	{
-		if (line_has_invalid_chars(line) == true)
+		if (line_has_invalid_chars(line) == true || check_line(line, i, data) == false)
+		{
+			free(line);
 			return (false);
-		data->raw_map[i++] = copy_map_line(line);
+		}
+		data->raw_map[i++] = copy_map_line_fixed(line, data);
 		line = get_line(fd, line);
 	}
 	if (map_checks(data, i, game) == false)
@@ -51,6 +54,8 @@ void	get_map_length(int fd, char *map_file, t_parse *data)
 	}
 	while (line != NULL)
 	{
+		if (ft_strlen(line) > data->line_size)
+			data->line_size = ft_strlen(line);
 		data->map_length++;
 		free(line);
 		line = get_next_line(fd);
@@ -59,7 +64,7 @@ void	get_map_length(int fd, char *map_file, t_parse *data)
 	fd = open(map_file, O_RDONLY);
 	if (fd == -1)
 	{
-		exit_error("Error: Can not open map file");
+		exit_error("Error:\nCan not open map file");
 		exit(0);
 	}
 }
@@ -98,7 +103,7 @@ int	line_has_invalid_chars(char *line)
 		else if (line[i] == '\0')
 			return (false);
 		else
-			exit_error("Error: Invalid caracter");
+			exit_error("Error:\nInvalid caracter");
 	}
 	return (false);
 }
@@ -119,13 +124,13 @@ int	map_has_multiple_players_or_none(char c, char option)
 	else if (c == 'E')
 		e++;
 	if (n > 1 || s > 1 || w > 1 || e > 1)
-		exit_error("Error: Duplicate Player");
+		exit_error("Error:\nDuplicate Player");
 	if (option == 'Y')
 	{
 		if ((n + s + w + e) == 0)
-			exit_error("Error: Missing Player");
+			exit_error("Error:\nMissing Player");
 		else if ((n + s + w + e) > 1)
-			exit_error("Error: Too many players");
+			exit_error("Error:\nToo many players");
 	}
 	return (false);
 }

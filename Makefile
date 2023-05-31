@@ -6,7 +6,7 @@
 #    By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 01:23:03 by imurugar          #+#    #+#              #
-#    Updated: 2023/05/29 11:20:40 by imurugar         ###   ########.fr        #
+#    Updated: 2023/05/31 13:23:23 by imurugar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ OBJ_DIR	 =		./obj/
 INC_DIR	 =		./inc/
 
 # /* ~~~~~~~ MAIN DIRS ~~~~~~~ */
-CAMERA_SRC	= camera/
 DRAW_SRC	= draw/
 IMGAGES_SRC	= img/
 ERROR_SRC	= error/
@@ -29,7 +28,6 @@ INC 			=   cub3d.h
 SRCS		=	main.c \
 				input.c \
 				utils.c \
-				${CAMERA_SRC}camera.c \
 				${DRAW_SRC}draw_floor_celi.c \
 				${DRAW_SRC}draw_wall.c \
 				${IMGAGES_SRC}init_images.c \
@@ -41,6 +39,7 @@ SRCS		=	main.c \
 				${PARSER_SRC}object_validating.c \
 				${PARSER_SRC}save_data.c \
 				${PARSER_SRC}validating_utils.c \
+				${PARSER_SRC}check_closed_map.c \
 
 # /* ~~~~~~~ INCLUDE CONFIG ~~~~~~~ */
 OBJ_FILES   = $(SRCS:.c=.o)

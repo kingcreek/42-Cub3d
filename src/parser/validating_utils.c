@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:21 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 21:46:37 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:27:05 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,37 @@ char	*copy_map_line(char *content)
 	content_len = ft_strlen(content) + 1;
 	line = malloc(sizeof(char) * content_len);
 	if (line == NULL)
-		exit_error("Error: Malloc failed");
+		exit_error("Error:\nMalloc failed");
 	while (content[++i] != '\0')
 		line[i] = content[i];
 	line[i] = '\0';
 	return (line);
 }
 
-char	**copy_2d_char_array(char **array)
+char	*copy_map_line_fixed(char *content, t_parse *data)
 {
 	int		i;
-	char	**result;
+	int		content_len;
+	char	*line;
 
-	i = 0;
-	if (array == NULL)
-		return (NULL);
-	while (array[i])
-		i++;
-	result = malloc(sizeof(char *) * (i + 1));
-	if (result == NULL)
-		exit_error("Error: Malloc failed");
 	i = -1;
-	while (array[++i])
-		result[i] = copy_map_line(array[i]);
-	result[i] = NULL;
-	return (result);
+	content_len = data->line_size;
+	line = malloc(sizeof(char) * content_len);
+	if (line == NULL)
+		exit_error("Error:\nMalloc failed");
+	while (content[++i] != '\0')
+	{
+		line[i] = content[i];
+		if (content[i] == ' ')
+			line[i] = '1';
+	}
+	while (i < content_len)
+	{
+		line[i - 1] = '1';
+		i++;
+	}
+	line[content_len - 1] = '\0';
+	return (line);
 }
 
 // void	ft_print_2d_char_array(char **array_2d)

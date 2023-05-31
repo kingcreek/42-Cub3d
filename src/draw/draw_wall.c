@@ -6,63 +6,12 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:58:47 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/29 22:56:01 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:37:54 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-
-/*
-void	process_y_wall_screen(int x, t_w_vars *vars, t_game *game)
-{
-	int	color;
-	int	texY;
-	int	y;
-
-	y = vars->drawStart;
-	while (*y < vars->drawEnd)
-	{
-		texY = (int)vars->texPos & (texHeight - 1);
-		vars->texPos += vars->step;
-		color = game->texture[vars->texNum][texHeight * texY + vars->texX];
-		if (vars->side == 1)
-				color = (color >> 1) & 8355711;
-			game->buf[y][x] = color;
-		y++;
-	}
-}
-*/
-/*
-static int	worldMap[mapWidth][mapHeight] =
-									{
-										{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-										{1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,1,0,1,1,1},
-										{1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1},
-										{1,1,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1},
-										{1,1,0,0,0,0,0,0,1,1,0,1,0,1,0,1,1,1,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,1,0,1},
-										{1,1,0,0,0,0,0,0,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1},
-										{1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1},
-										{1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,0,1,1,0,0,0,0,0,1},
-										{1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,0,0,0,1,1},
-										{1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,1,0,1,0,1},
-										{1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,0,1,0,1,0,0,0,1,1},
-										{1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,0,1,0,1,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,0,1,0,1,0,1},
-										{1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,0,1,0,1,0,0,0,1,1},
-										{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-									};*/
-		
 static void	calculate_ray(t_game *game, t_w_vars *vars, int x)
 {
 	vars->cameraX = 2 * x / (double)W_WIDTH - 1;
@@ -115,11 +64,7 @@ static void	perform_dda(t_game *game, t_w_vars *vars)
 			vars->mapY += vars->stepY;
 			vars->side = 1;
 		}
-		//Check if ray has hit a wall
-		//printf("%d   %d\n", vars->mapX, vars->mapY);
-		//ft_print_2d_char_array(game->map.map);
-		printf("%d   %d\n", vars->mapY, vars->mapX);
-		if (ft_strchr("NESW0", game->map.map[vars->mapY][vars->mapX]) == NULL) //if (game->map.map[vars->mapX][vars->mapY] != '0') 
+		if (ft_strchr("NESW0", game->map.map[vars->mapY][vars->mapX]) == NULL)
 			vars->hit = 1;
 	}
 }
@@ -132,10 +77,10 @@ static void	fill_texture(t_game *game, t_w_vars *vars)
 		vars->perpWallDist = (vars->mapY - game->player.posY + (1 - vars->stepY) / 2) / vars->rayDirY;
 	vars->lineHeight = (int)(W_HEIGH / vars->perpWallDist);
 	vars->drawStart = -vars->lineHeight / 2 + W_HEIGH / 2;
-	if(vars->drawStart < 0)
+	if (vars->drawStart < 0)
 		vars->drawStart = 0;
 	vars->drawEnd = vars->lineHeight / 2 + W_HEIGH / 2;
-	if(vars->drawEnd >= W_HEIGH)
+	if (vars->drawEnd >= W_HEIGH)
 		vars->drawEnd = W_HEIGH - 1;
 	if (vars->side == 0)
 		vars->wallX = game->player.posY + vars->perpWallDist * vars->rayDirY;
@@ -151,12 +96,12 @@ static void	fill_texture(t_game *game, t_w_vars *vars)
 	vars->texPos = (vars->drawStart - W_HEIGH / 2 + vars->lineHeight / 2) * vars->step;
 }
 
-void draw_wall(t_game *game)
+void	draw_wall(t_game *game)
 {
 	int			x;
 	int			y;
 	int			color;
-	int			texY;
+	int			tex_y;
 	t_w_vars	vars;
 
 	x = 0;
@@ -167,24 +112,24 @@ void draw_wall(t_game *game)
 		perform_dda(game, &vars);
 		fill_texture(game, &vars);
 		y = vars.drawStart;
-		while(y < vars.drawEnd)
+		while (y < vars.drawEnd)
 		{
-			texY = (int)vars.texPos & (texHeight - 1);
+			tex_y = (int)vars.texPos & (texHeight - 1);
 			vars.texPos += vars.step;
 			if (vars.side == 0 && vars.rayDirX > 0)
-    			vars.texNum = 3; // Oeste
+				vars.texNum = 3;
 			else if (vars.side == 0 && vars.rayDirX < 0)
-    			vars.texNum = 2; // Este
+				vars.texNum = 2;
 			else if (vars.side == 1 && vars.rayDirY > 0)
-    			vars.texNum = 1; // Sur
+				vars.texNum = 1;
 			else if (vars.side == 1 && vars.rayDirY < 0)
-    			vars.texNum = 0; // Norte
-			color = game->texture[vars.texNum][texHeight * texY + vars.texX];
+				vars.texNum = 0;
+			color = game->texture[vars.texNum][texHeight * tex_y + vars.texX];
 			if (vars.side == 1)
 				color = (color >> 1) & 8355711;
-			game->zbuffer[y][x] = color;
+			game->zbuffer[y][W_WIDTH - x - 1] = color;
 			y++;
 		}
-		x++;	
+		x++;
 	}
 }
