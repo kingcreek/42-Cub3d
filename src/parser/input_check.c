@@ -6,27 +6,11 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:00 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:36:08 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:14:54 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	input_check(char *argv, t_parse *data, t_game *game)
-{
-	int	i;
-
-	i = ft_strlen(argv);
-	if (argv && i > 3 && argv[i - 1] == 'b' && argv[i - 2] == 'u'
-		&& argv[i - 3] == 'c' && argv[i - 4] == '.')
-	{
-		if (validate_content(argv, data, game) == false)
-			return (false);
-	}
-	else
-		exit_error("Error:\nWrong file extension");
-	return (true);
-}
 
 int	validate_content(char *map_file, t_parse *data, t_game *game)
 {
@@ -57,11 +41,28 @@ int	validate_content(char *map_file, t_parse *data, t_game *game)
 	return (close(fd), true);
 }
 
+static void	process_position(t_game *game, char **map, int x, int y)
+{
+	if (ft_strchr("S", map[y][x]) != NULL)
+		game->player.dirY = 1;
+	else if (ft_strchr("E", map[y][x]) != NULL)
+	{
+		game->player.dirX = 1;
+		game->player.dirY = 0;
+	}
+	else if (ft_strchr("W", map[y][x]) != NULL)
+	{
+		game->player.dirX = -1;
+		game->player.dirY = 0;
+	}
+	game->player.planeX = game->player.dirY * 0.66;
+	game->player.planeY = -game->player.dirX * 0.66;
+}
+
 void	get_player_pos(char **map, t_game *game)
 {
 	int		y;
 	int		x;
-	double	plane_length;
 
 	y = 0;
 	while (map[y] != NULL)
@@ -75,23 +76,7 @@ void	get_player_pos(char **map, t_game *game)
 				game->player.posY = y + 0.5;
 				game->player.dirX = 0;
 				game->player.dirY = -1;
-				if (ft_strchr("S", map[y][x]) != NULL)
-				{
-					game->player.dirX = 0;
-					game->player.dirY = 1;
-				}
-				else if (ft_strchr("E", map[y][x]) != NULL)
-				{
-					game->player.dirX = 1;
-					game->player.dirY = 0;
-				}
-				else if (ft_strchr("W", map[y][x]) != NULL)
-				{
-					game->player.dirX = -1;
-					game->player.dirY = 0;
-				}
-				game->player.planeX = game->player.dirY * 0.66;
-				game->player.planeY = -game->player.dirX * 0.66;
+				process_position(game, map, x, y);
 				return ;
 			}
 			x++;
@@ -100,10 +85,6 @@ void	get_player_pos(char **map, t_game *game)
 	}
 }
 
-// TO PRINT MAP
-	// print_map_objects(data);
-	// ft_print_2d_char_array(data->map_copy);
-	// ft_printf("\n");
 int	map_checks(t_parse *data, int i, t_game *game)
 {
 	int	pos;
@@ -121,7 +102,8 @@ int	map_checks(t_parse *data, int i, t_game *game)
 		{
 			flag = 1;
 		}
-		else if (data->raw_map[pos][0] != '\n' && data->raw_map[pos][0] != '\0' && flag)
+		else if (data->raw_map[pos][0] != '\n'
+				&& data->raw_map[pos][0] != '\0' && flag)
 		{
 			exit_error("Error:\nMap contains invalid line");
 		}

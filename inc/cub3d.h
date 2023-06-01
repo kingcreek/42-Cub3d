@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 01:30:59 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:27:43 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:55:02 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		mapcheck(char **map);
 /* DRAW */
 void	draw_floor_ceiling(t_game *game);
 void 	draw_wall(t_game *game);
+void	perform_dda(t_game *game, t_w_vars *vars);
 
 /* UTILS */
 bool	arg_check(int argc, char **argv);
@@ -134,7 +135,6 @@ void	get_player_pos(char **map, t_game *game);
 int		map_has_multiple_players_or_none(char c, char option);
 int		map_validathor(char *map_file, t_parse *data, int fd, t_game *game);
 void	get_map_length(int fd, char *map_file, t_parse *data);
-char	*copy_map_line(char *content);
 void	free_char_array(char **array);
 int		it_can_be_opened(char *file);
 

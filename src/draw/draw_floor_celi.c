@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:57:44 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:26:00 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:54:44 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,26 @@ void	draw_floor_ceiling(t_game *game)
 			x++;
 		}
 		y++;
+	}
+}
+
+void	perform_dda(t_game *game, t_w_vars *vars)
+{
+	while (vars->hit == 0)
+	{
+		if (vars->sideDistX < vars->sideDistY)
+		{
+			vars->sideDistX += vars->deltaDistX;
+			vars->mapX += vars->stepX;
+			vars->side = 0;
+		}
+		else
+		{
+			vars->sideDistY += vars->deltaDistY;
+			vars->mapY += vars->stepY;
+			vars->side = 1;
+		}
+		if (ft_strchr("NESW0", game->map.map[vars->mapY][vars->mapX]) == NULL)
+			vars->hit = 1;
 	}
 }

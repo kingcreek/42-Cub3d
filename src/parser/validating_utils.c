@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:21 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:27:05 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:12:33 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@ char	*get_line(int fd, char *line)
 	return (get_next_line(fd));
 }
 
-char	*copy_map_line(char *content)
+int	input_check(char *argv, t_parse *data, t_game *game)
 {
-	int		i;
-	int		content_len;
-	char	*line;
+	int	i;
 
-	i = -1;
-	content_len = ft_strlen(content) + 1;
-	line = malloc(sizeof(char) * content_len);
-	if (line == NULL)
-		exit_error("Error:\nMalloc failed");
-	while (content[++i] != '\0')
-		line[i] = content[i];
-	line[i] = '\0';
-	return (line);
+	i = ft_strlen(argv);
+	if (argv && i > 3 && argv[i - 1] == 'b' && argv[i - 2] == 'u'
+		&& argv[i - 3] == 'c' && argv[i - 4] == '.')
+	{
+		if (validate_content(argv, data, game) == false)
+			return (false);
+	}
+	else
+		exit_error("Error:\nWrong file extension");
+	return (true);
 }
 
 char	*copy_map_line_fixed(char *content, t_parse *data)

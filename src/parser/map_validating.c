@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:04 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:24:50 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:16:35 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ int	map_validathor(char *map_file, t_parse *data, int fd, t_game *game)
 	line = get_line(fd, line);
 	while (line != NULL)
 	{
-		if (line_has_invalid_chars(line) == true || check_line(line, i, data) == false)
-		{
-			free(line);
-			return (false);
-		}
+		if (line_has_invalid_chars(line) == true
+			|| check_line(line, i, data) == false)
+			return (free(line), false);
 		data->raw_map[i++] = copy_map_line_fixed(line, data);
 		line = get_line(fd, line);
 	}

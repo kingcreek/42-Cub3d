@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:05:06 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:37:13 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:17:21 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static void	load_image(t_game *game, int *texture, char *path, t_img *img)
 	int	x;
 
 	y = 0;
-	img->img = mlx_xpm_file_to_image(game->mlx, path, &img->img_width, &img->img_height);
-	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
+	img->img = mlx_xpm_file_to_image(game->mlx, path,
+			&img->img_width, &img->img_height);
+	img->data = (int *)mlx_get_data_addr(img->img,
+			&img->bpp, &img->size_l, &img->endian);
 	while (y < img->img_height)
 	{
 		x = 0;

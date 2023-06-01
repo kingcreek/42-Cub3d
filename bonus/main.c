@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 01:30:44 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 13:38:16 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/05/31 02:06:49 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,46 @@ void	draw(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
 
+/*
+void update_with_cursor(t_game *game)
+{
+    int mouseX;
+    int mouseY;
+    double oldDirX;
+    double oldPlaneX;
+    
+    mlx_mouse_get_pos(game->mlx, game->win, &mouseX, &mouseY);
+    
+    static int prevMouseX = W_WIDTH / 2;
+    int mouseXDiff = mouseX - prevMouseX;
+    
+    if (mouseXDiff != 0)
+    {
+        prevMouseX = mouseX;
+        
+        if (mouseXDiff < 0)
+        {
+            oldDirX = game->player.dirX;
+            game->player.dirX = game->player.dirX * cos(ROT_SPEED) - game->player.dirY * sin(ROT_SPEED);
+            game->player.dirY = oldDirX * sin(ROT_SPEED) + game->player.dirY * cos(ROT_SPEED);
+            oldPlaneX = game->player.planeX;
+            game->player.planeX = game->player.planeX * cos(ROT_SPEED) - game->player.planeY * sin(ROT_SPEED);
+            game->player.planeY = oldPlaneX * sin(ROT_SPEED) + game->player.planeY * cos(ROT_SPEED);
+        }
+        else if (mouseXDiff > 0)
+        {
+            oldDirX = game->player.dirX;
+            game->player.dirX = game->player.dirX * cos(-ROT_SPEED) - game->player.dirY * sin(-ROT_SPEED);
+            game->player.dirY = oldDirX * sin(-ROT_SPEED) + game->player.dirY * cos(-ROT_SPEED);
+            oldPlaneX = game->player.planeX;
+            game->player.planeX = game->player.planeX * cos(-ROT_SPEED) - game->player.planeY * sin(-ROT_SPEED);
+            game->player.planeY = oldPlaneX * sin(-ROT_SPEED) + game->player.planeY * cos(-ROT_SPEED);
+        }
+    }
+}*/
 void	calc(t_game *game)
 {
+	//update_with_cursor(game);
 	draw_floor_ceiling(game);
 	draw_wall(game);
 }

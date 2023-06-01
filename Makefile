@@ -6,14 +6,15 @@
 #    By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 01:23:03 by imurugar          #+#    #+#              #
-#    Updated: 2023/05/31 13:23:23 by imurugar         ###   ########.fr        #
+#    Updated: 2023/05/31 15:50:18 by imurugar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # /* ~~~~~~~ FOLDERS DIR ~~~~~~~ */
-SRCS_DIR = 		./src/
-OBJ_DIR	 =		./obj/
-INC_DIR	 =		./inc/
+SRCS_DIR	= ./src/
+OBJ_DIR		= ./obj/
+INC_DIR		= ./inc/
+BONUS_DIR	= ./bonus/
 
 # /* ~~~~~~~ MAIN DIRS ~~~~~~~ */
 DRAW_SRC	= draw/
