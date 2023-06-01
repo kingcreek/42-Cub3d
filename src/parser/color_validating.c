@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:47:54 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/30 23:53:01 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:04:09 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	validate_color(char *line, t_parse *data)
 {
-	char	*trimmed_line;
 	char	**rgb;
 
 	if (commacounter(line) == false || rgb_contains_letters(line) == true
@@ -72,13 +71,12 @@ int	valid_rgb(char **rgb)
 		|| (ft_atoi(rgb[1]) > 255 || ft_atoi(rgb[1]) < 0)
 		|| (ft_atoi(rgb[2]) > 255 || ft_atoi(rgb[2]) < 0))
 		exit_error("Error:\nRGB Out of range");
-	else
-		return (true);
+	return (true);
 }
 
 int	rgb_contains_letters(char *line)
 {
-	int	i;
+	size_t	i;
 
 	i = 2;
 	while (i < ft_strlen(line) - 1)

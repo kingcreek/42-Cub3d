@@ -6,13 +6,13 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:04 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 17:16:35 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:05:14 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	map_validathor(char *map_file, t_parse *data, int fd, t_game *game)
+int	map_validathor(t_parse *data, int fd, t_game *game)
 {
 	int			i;
 	static int	k;

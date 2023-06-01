@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:09 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/30 23:53:01 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:11:18 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,13 @@ int	contains_valid_objects(char *line, t_parse *data)
 			return (false);
 	if ((ft_strncmp(line, "F ", 2) == 0 && ft_isdigit(line[2]) == true)
 		|| (ft_strncmp(line, "C ", 2) == 0 && ft_isdigit(line[2]) == true))
+	{
 		if (validate_color(line, data) == false)
 			return (false);
+	}
 	else
 		return (false);
+	return (false);
 }
 
 int	invalid_attribute(char *line)
