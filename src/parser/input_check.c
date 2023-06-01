@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:00 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 17:14:54 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:44:09 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ int	validate_content(char *map_file, t_parse *data, t_game *game)
 static void	process_position(t_game *game, char **map, int x, int y)
 {
 	if (ft_strchr("S", map[y][x]) != NULL)
-		game->player.dirY = 1;
+		game->player.dir_y = 1;
 	else if (ft_strchr("E", map[y][x]) != NULL)
 	{
-		game->player.dirX = 1;
-		game->player.dirY = 0;
+		game->player.dir_x = 1;
+		game->player.dir_y = 0;
 	}
 	else if (ft_strchr("W", map[y][x]) != NULL)
 	{
-		game->player.dirX = -1;
-		game->player.dirY = 0;
+		game->player.dir_x = -1;
+		game->player.dir_y = 0;
 	}
-	game->player.planeX = game->player.dirY * 0.66;
-	game->player.planeY = -game->player.dirX * 0.66;
+	game->player.plane_x = game->player.dir_y * 0.66;
+	game->player.plane_y = -game->player.dir_x * 0.66;
 }
 
 void	get_player_pos(char **map, t_game *game)
@@ -72,10 +72,10 @@ void	get_player_pos(char **map, t_game *game)
 		{
 			if (ft_strchr("NESW", map[y][x]) != NULL)
 			{
-				game->player.posX = x + 0.5;
-				game->player.posY = y + 0.5;
-				game->player.dirX = 0;
-				game->player.dirY = -1;
+				game->player.pos_x = x + 0.5;
+				game->player.pos_y = y + 0.5;
+				game->player.dir_x = 0;
+				game->player.dir_y = -1;
 				process_position(game, map, x, y);
 				return ;
 			}

@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 02:29:28 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/30 13:49:30 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:49:49 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ typedef struct s_player
 */
 typedef struct	s_player
 {
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
+	double pos_x;
+	double pos_y;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
 }			t_player;
 
 //Imput keys
@@ -85,16 +85,16 @@ typedef struct	s_game
 //struct for draw map
 typedef struct s_draw_vars
 {
-	float	rayDirX0;
-	float	rayDirY0;
-	float	rayDirX1;
-	float	rayDirY1;
+	float	ray_dir_x;
+	float	ray_dir_y;
+	float	ray_dir_x1;
+	float	ray_dir_y1;
 	int		pos;
-	float	rowDistance;
-	float	floorStepX;
-	float	floorStepY;
-	float	floorX;
-	float	floorY;
+	float	row_distance;
+	float	floor_step_x;
+	float	floor_step_y;
+	float	floor_x;
+	float	floor_y;
 	int		tx;
 	int		ty;
 }		t_draw_vars;
@@ -102,28 +102,28 @@ typedef struct s_draw_vars
 //raycasting struct
 typedef struct s_w_vars
 {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	int		stepX;
-	int		stepY;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
 	int		hit;
 	int		side;
-	int		lineHeight;
-	int 	drawEnd;
-	int		drawStart;
-	int		texNum;
-	double	wallX;
-	int		texX;
+	int		line_height;
+	int 	draw_end;
+	int		draw_start;
+	int		tex_num;
+	double	wall_x;
+	int		tex_x;
 	double	step;
-	double	texPos;
+	double	tex_pos;
 }		t_w_vars;
 
 typedef struct	s_parse

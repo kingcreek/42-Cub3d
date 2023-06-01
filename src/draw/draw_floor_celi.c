@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:57:44 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 19:54:44 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:48:05 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ void	perform_dda(t_game *game, t_w_vars *vars)
 {
 	while (vars->hit == 0)
 	{
-		if (vars->sideDistX < vars->sideDistY)
+		if (vars->side_dist_x < vars->side_dist_y)
 		{
-			vars->sideDistX += vars->deltaDistX;
-			vars->mapX += vars->stepX;
+			vars->side_dist_x += vars->delta_dist_x;
+			vars->map_x += vars->step_x;
 			vars->side = 0;
 		}
 		else
 		{
-			vars->sideDistY += vars->deltaDistY;
-			vars->mapY += vars->stepY;
+			vars->side_dist_y += vars->delta_dist_y;
+			vars->map_y += vars->step_y;
 			vars->side = 1;
 		}
-		if (ft_strchr("NESW0", game->map.map[vars->mapY][vars->mapX]) == NULL)
+		if (ft_strchr("NESW0", game->map.map[vars->map_y][vars->map_x]) == NULL)
 			vars->hit = 1;
 	}
 }

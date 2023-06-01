@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 04:13:37 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:28:57 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:44:09 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	init_zbuffer(t_game *game)
 
 void	init_vars(t_game *game)
 {
-	game->player.planeX = 0.0;
-	game->player.planeY = 0.66;
+	game->player.plane_x = 0.0;
+	game->player.plane_y = 0.66;
 	game->keys.key_w = 0;
 	game->keys.key_a = 0;
 	game->keys.key_s = 0;

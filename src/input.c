@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 02:14:36 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/30 16:25:05 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:51:35 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ void	process_ad_position(t_game *game, t_player *player)
 	map = game->map.map;
 	if (game->keys.key_d)
 	{
-		if (ft_strchr("NESW0", map[(int)(player->posY + \
-			player->dirX * MOVE_SPEED)][(int)(player->posX)]) != NULL)
-			player->posY += player->dirX * MOVE_SPEED;
-		if (ft_strchr("NESW0", map[(int)(player->posY)][(int)(player->posX - \
-			player->dirY * MOVE_SPEED)]) != NULL)
-			player->posX -= player->dirY * MOVE_SPEED;
+		if (ft_strchr("NESW0", map[(int)(player->pos_y + \
+			player->dir_x * MOVE_SPEED)][(int)(player->pos_x)]) != NULL)
+			player->pos_y += player->dir_x * MOVE_SPEED;
+		if (ft_strchr("NESW0", map[(int)(player->pos_y)][(int)(player->pos_x - \
+			player->dir_y * MOVE_SPEED)]) != NULL)
+			player->pos_x -= player->dir_y * MOVE_SPEED;
 	}
 	if (game->keys.key_a)
 	{
-		if (ft_strchr("NESW0", map[(int)(player->posY - \
-			player->dirX * MOVE_SPEED)][(int)(player->posX)]) != NULL)
-			player->posY -= player->dirX * MOVE_SPEED;
-		if (ft_strchr("NESW0", map[(int)(player->posY)][(int)(player->posX + \
-			player->dirY * MOVE_SPEED)]) != NULL)
-			player->posX += player->dirY * MOVE_SPEED;
+		if (ft_strchr("NESW0", map[(int)(player->pos_y - \
+			player->dir_x * MOVE_SPEED)][(int)(player->pos_x)]) != NULL)
+			player->pos_y -= player->dir_x * MOVE_SPEED;
+		if (ft_strchr("NESW0", map[(int)(player->pos_y)][(int)(player->pos_x + \
+			player->dir_y * MOVE_SPEED)]) != NULL)
+			player->pos_x += player->dir_y * MOVE_SPEED;
 	}
 }
 
@@ -44,21 +44,21 @@ void	process_ws_position(t_game *game, t_player *player)
 	map = game->map.map;
 	if (game->keys.key_w)
 	{
-		if (ft_strchr("NESW0", map[(int)(player->posY + \
-			player->dirY * MOVE_SPEED)][(int)(player->posX)]) != NULL)
-			player->posY += player->dirY * MOVE_SPEED;
-		if (ft_strchr("NESW0", map[(int)(player->posY)][(int)(player->posX + \
-			player->dirX * MOVE_SPEED)]) != NULL)
-			player->posX += player->dirX * MOVE_SPEED;
+		if (ft_strchr("NESW0", map[(int)(player->pos_y + \
+			player->dir_y * MOVE_SPEED)][(int)(player->pos_x)]) != NULL)
+			player->pos_y += player->dir_y * MOVE_SPEED;
+		if (ft_strchr("NESW0", map[(int)(player->pos_y)][(int)(player->pos_x + \
+			player->dir_x * MOVE_SPEED)]) != NULL)
+			player->pos_x += player->dir_x * MOVE_SPEED;
 	}
 	if (game->keys.key_s)
 	{
-		if (ft_strchr("NESW0", map[(int)(player->posY - \
-			player->dirY * MOVE_SPEED)][(int)(player->posX)]) != NULL)
-			player->posY -= player->dirY * MOVE_SPEED;
-		if (ft_strchr("NESW0", map[(int)(player->posY)][(int)(player->posX - \
-			player->dirX * MOVE_SPEED)]) != NULL)
-			player->posX -= player->dirX * MOVE_SPEED;
+		if (ft_strchr("NESW0", map[(int)(player->pos_y - \
+			player->dir_y * MOVE_SPEED)][(int)(player->pos_x)]) != NULL)
+			player->pos_y -= player->dir_y * MOVE_SPEED;
+		if (ft_strchr("NESW0", map[(int)(player->pos_y)][(int)(player->pos_x - \
+			player->dir_x * MOVE_SPEED)]) != NULL)
+			player->pos_x -= player->dir_x * MOVE_SPEED;
 	}
 }
 
@@ -69,21 +69,23 @@ void	process_angle(t_game *game, t_player *p)
 
 	if (game->keys.key_right)
 	{
-		old_dirx = p->dirX;
-		p->dirX = p->dirX * cos(ROT_SPEED) - p->dirY * sin(ROT_SPEED);
-		p->dirY = old_dirx * sin(ROT_SPEED) + p->dirY * cos(ROT_SPEED);
-		old_planex = p->planeX;
-		p->planeX = p->planeX * cos(ROT_SPEED) - p->planeY * sin(ROT_SPEED);
-		p->planeY = old_planex * sin(ROT_SPEED) + p->planeY * cos(ROT_SPEED);
+		old_dirx = p->dir_x;
+		p->dir_x = p->dir_x * cos(ROT_SPEED) - p->dir_y * sin(ROT_SPEED);
+		p->dir_y = old_dirx * sin(ROT_SPEED) + p->dir_y * cos(ROT_SPEED);
+		old_planex = p->plane_x;
+		p->plane_x = p->plane_x * cos(ROT_SPEED) - p->plane_y * sin(ROT_SPEED);
+		p->plane_y = old_planex * sin(ROT_SPEED) + p->plane_y * cos(ROT_SPEED);
 	}
 	else if (game->keys.key_left)
 	{
-		old_dirx = p->dirX;
-		p->dirX = p->dirX * cos(-ROT_SPEED) - p->dirY * sin(-ROT_SPEED);
-		p->dirY = old_dirx * sin(-ROT_SPEED) + p->dirY * cos(-ROT_SPEED);
-		old_planex = p->planeX;
-		p->planeX = p->planeX * cos(-ROT_SPEED) - p->planeY * sin(-ROT_SPEED);
-		p->planeY = old_planex * sin(-ROT_SPEED) + p->planeY * cos(-ROT_SPEED);
+		old_dirx = p->dir_x;
+		p->dir_x = p->dir_x * cos(-ROT_SPEED) - p->dir_y * sin(-ROT_SPEED);
+		p->dir_y = old_dirx * sin(-ROT_SPEED) + p->dir_y * cos(-ROT_SPEED);
+		old_planex = p->plane_x;
+		p->plane_x = p->plane_x * cos(-ROT_SPEED) - p->plane_y
+			* sin(-ROT_SPEED);
+		p->plane_y = old_planex * sin(-ROT_SPEED) + p->plane_y
+			* cos(-ROT_SPEED);
 	}
 }
 

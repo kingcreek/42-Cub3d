@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:58:47 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 19:54:53 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:52:08 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,68 +14,73 @@
 
 static void	calculate_ray(t_game *game, t_w_vars *vars, int x)
 {
-	vars->cameraX = 2 * x / (double)W_WIDTH - 1;
-	vars->rayDirX = game->player.dirX + game->player.planeX * vars->cameraX;
-	vars->rayDirY = game->player.dirY + game->player.planeY * vars->cameraX;
-	vars->mapX = (int)game->player.posX;
-	vars->mapY = (int)game->player.posY;
-	vars->deltaDistX = fabs(1 / vars->rayDirX);
-	vars->deltaDistY = fabs(1 / vars->rayDirY);
+	vars->camera_x = 2 * x / (double)W_WIDTH - 1;
+	vars->ray_dir_x = game->player.dir_x + game->player.plane_x
+		* vars->camera_x;
+	vars->ray_dir_y = game->player.dir_y + game->player.plane_y
+		* vars->camera_x;
+	vars->map_x = (int)game->player.pos_x;
+	vars->map_y = (int)game->player.pos_y;
+	vars->delta_dist_x = fabs(1 / vars->ray_dir_x);
+	vars->delta_dist_y = fabs(1 / vars->ray_dir_y);
 	vars->hit = 0;
 }
 
 static void	check_side(t_game *game, t_w_vars *vars)
 {
-	if (vars->rayDirX < 0)
+	if (vars->ray_dir_x < 0)
 	{
-		vars->stepX = -1;
-		vars->sideDistX = (game->player.posX - vars->mapX) * vars->deltaDistX;
+		vars->step_x = -1;
+		vars->side_dist_x = (game->player.pos_x - vars->map_x)
+			* vars->delta_dist_x;
 	}
 	else
 	{
-		vars->stepX = 1;
-		vars->sideDistX = (vars->mapX + 1.0 - game->player.posX)
-			* vars->deltaDistX;
+		vars->step_x = 1;
+		vars->side_dist_x = (vars->map_x + 1.0 - game->player.pos_x)
+			* vars->delta_dist_x;
 	}
-	if (vars->rayDirY < 0)
+	if (vars->ray_dir_y < 0)
 	{
-		vars->stepY = -1;
-		vars->sideDistY = (game->player.posY - vars->mapY) * vars->deltaDistY;
+		vars->step_y = -1;
+		vars->side_dist_y = (game->player.pos_y - vars->map_y)
+			* vars->delta_dist_y;
 	}
 	else
 	{
-		vars->stepY = 1;
-		vars->sideDistY = (vars->mapY + 1.0 - game->player.posY)
-			* vars->deltaDistY;
+		vars->step_y = 1;
+		vars->side_dist_y = (vars->map_y + 1.0 - game->player.pos_y)
+			* vars->delta_dist_y;
 	}
 }
 
 static void	fill_texture(t_game *game, t_w_vars *vars)
 {
-	vars->perpWallDist = (vars->mapY - game->player.posY
-			+ (1 - vars->stepY) / 2) / vars->rayDirY;
+	vars->perp_wall_dist = (vars->map_y - game->player.pos_y
+			+ (1 - vars->step_y) / 2) / vars->ray_dir_y;
 	if (vars->side == 0)
-		vars->perpWallDist = (vars->mapX - game->player.posX
-				+ (1 - vars->stepX) / 2) / vars->rayDirX;
-	vars->lineHeight = (int)(W_HEIGH / vars->perpWallDist);
-	vars->drawStart = -vars->lineHeight / 2 + W_HEIGH / 2;
-	if (vars->drawStart < 0)
-		vars->drawStart = 0;
-	vars->drawEnd = vars->lineHeight / 2 + W_HEIGH / 2;
-	if (vars->drawEnd >= W_HEIGH)
-		vars->drawEnd = W_HEIGH - 1;
-	vars->wallX = game->player.posX + vars->perpWallDist * vars->rayDirX;
+		vars->perp_wall_dist = (vars->map_x - game->player.pos_x
+				+ (1 - vars->step_x) / 2) / vars->ray_dir_x;
+	vars->line_height = (int)(W_HEIGH / vars->perp_wall_dist);
+	vars->draw_start = -vars->line_height / 2 + W_HEIGH / 2;
+	if (vars->draw_start < 0)
+		vars->draw_start = 0;
+	vars->draw_end = vars->line_height / 2 + W_HEIGH / 2;
+	if (vars->draw_end >= W_HEIGH)
+		vars->draw_end = W_HEIGH - 1;
+	vars->wall_x = game->player.pos_x + vars->perp_wall_dist * vars->ray_dir_x;
 	if (vars->side == 0)
-		vars->wallX = game->player.posY + vars->perpWallDist * vars->rayDirY;
-	vars->wallX -= floor(vars->wallX);
-	vars->texX = (int)(vars->wallX * (double)texWidth);
-	if (vars->side == 0 && vars->rayDirX > 0)
-		vars->texX = texWidth - vars->texX - 1;
-	if (vars->side == 1 && vars->rayDirY < 0)
-		vars->texX = texWidth - vars->texX - 1;
-	vars->step = 1.0 * texHeight / vars->lineHeight;
-	vars->texPos = (vars->drawStart - W_HEIGH / 2
-			+ vars->lineHeight / 2) * vars->step;
+		vars->wall_x = game->player.pos_y + vars->perp_wall_dist
+			* vars->ray_dir_y;
+	vars->wall_x -= floor(vars->wall_x);
+	vars->tex_x = (int)(vars->wall_x * (double)texWidth);
+	if (vars->side == 0 && vars->ray_dir_x > 0)
+		vars->tex_x = texWidth - vars->tex_x - 1;
+	if (vars->side == 1 && vars->ray_dir_y < 0)
+		vars->tex_x = texWidth - vars->tex_x - 1;
+	vars->step = 1.0 * texHeight / vars->line_height;
+	vars->tex_pos = (vars->draw_start - W_HEIGH / 2
+			+ vars->line_height / 2) * vars->step;
 }
 
 static void	fill_buffer(t_game *game, t_w_vars *vars, int x, int y)
@@ -83,16 +88,16 @@ static void	fill_buffer(t_game *game, t_w_vars *vars, int x, int y)
 	int	color;
 	int	tex_y;
 
-	tex_y = (int)vars->texPos & (texHeight - 1);
-	vars->texPos += vars->step;
-	vars->texNum = 0;
-	if (vars->side == 0 && vars->rayDirX > 0)
-		vars->texNum = 3;
-	else if (vars->side == 0 && vars->rayDirX < 0)
-		vars->texNum = 2;
-	else if (vars->side == 1 && vars->rayDirY > 0)
-		vars->texNum = 1;
-	color = game->texture[vars->texNum][texHeight * tex_y + vars->texX];
+	tex_y = (int)vars->tex_pos & (texHeight - 1);
+	vars->tex_pos += vars->step;
+	vars->tex_num = 0;
+	if (vars->side == 0 && vars->ray_dir_x > 0)
+		vars->tex_num = 3;
+	else if (vars->side == 0 && vars->ray_dir_x < 0)
+		vars->tex_num = 2;
+	else if (vars->side == 1 && vars->ray_dir_y > 0)
+		vars->tex_num = 1;
+	color = game->texture[vars->tex_num][texHeight * tex_y + vars->tex_x];
 	if (vars->side == 1)
 		color = (color >> 1) & 8355711;
 	game->zbuffer[y][W_WIDTH - x - 1] = color;
@@ -111,8 +116,8 @@ void	draw_wall(t_game *game)
 		check_side(game, &vars);
 		perform_dda(game, &vars);
 		fill_texture(game, &vars);
-		y = vars.drawStart;
-		while (y < vars.drawEnd)
+		y = vars.draw_start;
+		while (y < vars.draw_end)
 		{
 			fill_buffer(game, &vars, x, y);
 			y++;
