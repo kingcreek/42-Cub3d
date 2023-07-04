@@ -6,7 +6,7 @@
 #    By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 01:23:03 by imurugar          #+#    #+#              #
-#    Updated: 2023/06/01 19:58:11 by imurugar         ###   ########.fr        #
+#    Updated: 2023/06/01 20:39:26 by imurugar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ DRAW_SRC	= draw/
 IMGAGES_SRC	= img/
 ERROR_SRC	= error/
 PARSER_SRC	= parser/
+MENU_SRC	= menu/
+MINIMAP_SRC	= minimap/
 
 # /* ~~~~~~~ HEADER FILES ~~~~~~~ */
 INC 			=   cub3d.h
@@ -68,6 +70,8 @@ SRCS_B	=		${BONUS_DIR}main_bonus.c \
 				${PARSER_SRC}validating_utils.c \
 				${PARSER_SRC}check_closed_map.c \
 				${BONUS_DIR}mouse.c \
+				${BONUS_DIR}${MINIMAP_SRC}minimap.c \
+				${BONUS_DIR}${MENU_SRC}menu.c \
 				
 OBJ_FILES_B = $(SRCS_B:.c=.o)
 SRC_B		= $(addprefix $(SRCS_DIR), $(SRCS_B))
