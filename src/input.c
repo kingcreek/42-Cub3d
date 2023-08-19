@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 02:14:36 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 13:51:35 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:47:42 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	process_angle(t_game *game, t_player *p)
 int	key_press(int key, t_game *game)
 {
 	if (key == KEY_ESC)
-		exit(0);
+		exit_game(game);
 	if (key == KEY_W)
 		game->keys.key_w = 1;
 	if (key == KEY_S)

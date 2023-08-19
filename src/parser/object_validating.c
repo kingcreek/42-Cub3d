@@ -6,39 +6,11 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:09 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 17:11:18 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/17 19:27:24 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-int	contains_valid_objects(char *line, t_parse *data)
-{
-	if (invalid_attribute(line) == true)
-		return (false);
-	if (is_duplicate(line, data) == true)
-		return (false);
-	if (ft_strncmp(line, "NO .", 4) == 0
-		|| ft_strncmp(line, "SO .", 4) == 0
-		|| ft_strncmp(line, "WE .", 4) == 0
-		|| ft_strncmp(line, "EA .", 4) == 0)
-		if (validate_texture(line, data) == false)
-			return (false);
-	if ((ft_strncmp(line, "F ", 2) == 0 && ft_isdigit(line[2]) == true)
-		|| (ft_strncmp(line, "C ", 2) == 0 && ft_isdigit(line[2]) == true))
-		if (validate_color(line, data) == false)
-			return (false);
-	if (ft_strcmp(data->no, "X") == false
-		&& ft_strcmp(data->so, "X") == false
-		&& ft_strcmp(data->we, "X") == false
-		&& ft_strcmp(data->ea, "X") == false
-		&& data->f_color[0] != -1 && data->c_color[0] != -1)
-		return (true);
-	else
-		return (false);
-}
-*/
 
 int	contains_valid_objects(char *line, t_parse *data)
 {
@@ -52,14 +24,13 @@ int	contains_valid_objects(char *line, t_parse *data)
 		return (false);
 	if (check_duplicate(line, data) == true)
 		return (false);
-	if (ft_strncmp(line, "NO .", 4) == 0
-		|| ft_strncmp(line, "SO .", 4) == 0
-		|| ft_strncmp(line, "WE .", 4) == 0
-		|| ft_strncmp(line, "EA .", 4) == 0)
+	if (ft_strncmp(line, "NO ", 3) == 0
+		|| ft_strncmp(line, "SO ", 3) == 0
+		|| ft_strncmp(line, "WE ", 3) == 0
+		|| ft_strncmp(line, "EA ", 3) == 0)
 		if (validate_texture(line, data) == false)
 			return (false);
-	if ((ft_strncmp(line, "F ", 2) == 0 && ft_isdigit(line[2]) == true)
-		|| (ft_strncmp(line, "C ", 2) == 0 && ft_isdigit(line[2]) == true))
+	if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0))
 	{
 		if (validate_color(line, data) == false)
 			return (false);
@@ -74,8 +45,7 @@ int	invalid_attribute(char *line)
 	int	flag;
 
 	flag = 0;
-	if (line[0] != '\n' && line[3] != ' '
-		&& line[4] != '.' && line[5] != '/'
+	if (line[0] != '\n'
 		&& ft_strncmp(line, "NO", 2) != 0
 		&& ft_strncmp(line, "SO", 2) != 0
 		&& ft_strncmp(line, "WE", 2) != 0

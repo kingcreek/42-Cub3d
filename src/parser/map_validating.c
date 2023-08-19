@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:04 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 17:05:14 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/19 22:36:40 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,28 @@ int	map_validathor(t_parse *data, int fd, t_game *game)
 	int			i;
 	static int	k;
 	char		*line;
+	char		**tmp_map;
 
 	line = get_next_line(fd);
 	while (k++ != data->reading_pos)
 		line = get_line(fd, line);
-	data->raw_map = malloc(sizeof(char *) * (data->map_length + 1));
-	if (data->raw_map == NULL)
+	while (line != NULL && line_cotains_only_spaces(line) == true)
+		line = get_line(fd, line);
+	data->raw_map = ft_calloc((data->map_length + 1), sizeof(char *));
+	tmp_map = ft_calloc((data->map_length + 1), sizeof(char *));
+	if (data->raw_map == NULL || tmp_map == NULL)
 		exit_error("Error:\nMalloc failed");
 	i = 0;
-	line = get_line(fd, line);
 	while (line != NULL)
 	{
-		if (line_has_invalid_chars(line) == true
-			|| check_line(line, i, data) == false)
-			return (free(line), false);
+		if (line_has_invalid_chars(line) == true)
+			return (free_char_array(tmp_map), free(line), false);
+		tmp_map[i] = ft_strdup(line);
 		data->raw_map[i++] = copy_map_line_fixed(line, data);
 		line = get_line(fd, line);
 	}
-	if (map_checks(data, i, game) == false)
-		return (false);
-	return (close(fd), true);
+	free(line);
+	return (close(fd), perform_checks(data, game, i, tmp_map));
 }
 
 // skip lines with only space on them
@@ -88,6 +90,8 @@ int	line_has_invalid_chars(char *line)
 	int	i;
 
 	i = 0;
+	if (line[i] == '\n')
+		return (true);
 	while (line[i] != '\n')
 	{
 		if (line[i] == ' ' || line[i] == '0' || line[i] == '1'

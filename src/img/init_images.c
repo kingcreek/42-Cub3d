@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:05:06 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 17:17:21 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/19 19:10:28 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@ static void	load_image(t_game *game, int *texture, char *path, t_img *img)
 	y = 0;
 	img->img = mlx_xpm_file_to_image(game->mlx, path,
 			&img->img_width, &img->img_height);
+	if (!img->img)
+		exit_error("Error:\nBad texture");
 	img->data = (int *)mlx_get_data_addr(img->img,
 			&img->bpp, &img->size_l, &img->endian);
+	if (!img->data || img->img_width != TEXWIDTH \
+		|| img->img_height != TEXHEIGHT)
+		exit_error("Error:\nBad texture");
 	while (y < img->img_height)
 	{
 		x = 0;
@@ -56,21 +61,20 @@ static void	init_image_stack(t_game *game)
 	int	j;
 
 	i = 0;
-	game->texture = (int **)malloc(sizeof(int *) * 5);
+	game->texture = ft_calloc(5, sizeof(int *));
 	if (!game->texture)
 		exit_error("Malloc, failed");
-	while (i < 5)
+	while (i < 4)
 	{
-		game->texture[i] = (int *)malloc(sizeof(int) * (texHeight * texWidth));
-		if (!game->texture[i])
+		game->texture[i] = ft_calloc(TEXHEIGHT * TEXWIDTH + 1, sizeof(int));
+		if (!game->texture[i++])
 			exit_error("Malloc, failed");
-		i++;
 	}
 	i = 0;
-	while (i < 5)
+	while (i < 4)
 	{
 		j = 0;
-		while (j < texHeight * texWidth)
+		while (j < TEXHEIGHT * TEXWIDTH)
 		{
 			game->texture[i][j] = 0;
 			j++;

@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:00 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 17:05:41 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/19 22:48:18 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ int	map_checks(t_parse *data, int i, t_game *game)
 
 int	check_duplicate(char *line, t_parse *data)
 {
-	if ((ft_strncmp(line, "NO .", 4) == 0 && ft_strcmp(data->no, "X") != false)
-		|| (ft_strncmp(line, "SO .", 4) == 0
+	if ((ft_strncmp(line, "NO ", 3) == 0 && ft_strcmp(data->no, "X") != false)
+		|| (ft_strncmp(line, "SO ", 3) == 0
 			&& ft_strcmp(data->so, "X") != false)
-		|| (ft_strncmp(line, "WE .", 4) == 0
+		|| (ft_strncmp(line, "WE ", 3) == 0
 			&& ft_strcmp(data->we, "X") != false)
-		|| (ft_strncmp(line, "EA .", 4) == 0
+		|| (ft_strncmp(line, "EA ", 3) == 0
 			&& ft_strcmp(data->ea, "X") != false)
 		|| ((ft_strncmp(line, "F ", 2) == 0) && data->f_color[0] != -1)
 		|| ((ft_strncmp(line, "C ", 2) == 0) && data->c_color[0] != -1))

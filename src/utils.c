@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 04:13:37 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 13:44:09 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/19 19:55:57 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	commacounter(char *line)
 	}
 	if (commacount != 2)
 	{
-		printf("%s", "COMMA");
 		return (false);
 	}
 	return (true);
@@ -60,9 +59,10 @@ void	init_zbuffer(t_game *game)
 {
 	int	i;
 
-	game->zbuffer = (int **)ft_calloc(W_HEIGH, sizeof(int *));
+	game->zbuffer = (int **)ft_calloc(W_HEIGH + 1, sizeof(int *));
 	if (game->zbuffer == NULL)
 		exit_error("Error:\nWhile init zbuffer");
+	game->zbuffer[W_HEIGH] = NULL;
 	i = 0;
 	while (i < W_HEIGH)
 	{
@@ -83,4 +83,7 @@ void	init_vars(t_game *game)
 	game->keys.key_d = 0;
 	game->keys.key_left = 0;
 	game->keys.key_right = 0;
+	game->map.map = NULL;
+	game->zbuffer = NULL;
+	game->texture = NULL;
 }

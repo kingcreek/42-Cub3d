@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:21 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 17:12:33 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/07/13 20:46:04 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,6 @@ char	*copy_map_line_fixed(char *content, t_parse *data)
 	line[content_len - 1] = '\0';
 	return (line);
 }
-
-// void	ft_print_2d_char_array(char **array_2d)
-// {
-// 	int	i;
-// 	int	k;
-
-// 	if (array_2d == NULL)
-// 		return ;
-// 	i = 0;
-// 	while (array_2d[i] != NULL)
-// 	{
-// 		k = 0;
-// 		while (array_2d[i][k] != '\0')
-// 		{
-// 			put_chars(array_2d[i][k]);
-// 			k++;
-// 		}
-// 		write(1, "\n", 2);
-// 		i++;
-// 	}
-// }
 
 void	free_char_array(char **array)
 {

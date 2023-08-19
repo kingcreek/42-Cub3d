@@ -5,51 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 01:07:45 by imurugar          #+#    #+#             */
-/*   Updated: 2023/05/31 14:52:38 by imurugar         ###   ########.fr       */
+/*   Created: 2023/08/17 16:20:26 by imurugar          #+#    #+#             */
+/*   Updated: 2023/08/18 20:15:01 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	all_line_are_closed(char *line)
+static bool	is_inside_map(int x, int y, char **map, int size)
 {
-	int	pos;
+	if (y < 0 || y >= size)
+		return (false);
+	return (x >= 0 && x <= (int)ft_strlen(map[y]) - 1);
+}
 
-	pos = 0;
-	while (line[pos])
+static bool	is_closed_map(int x, int y, char **map, int size)
+{
+	bool	closed;
+
+	if (!is_inside_map(x, y, map, size))
+		return (false);
+	if (map[y][x] == '1' || map[y][x] == ' ')
+		return (true);
+	map[y][x] = '1';
+	closed = true;
+	closed &= is_closed_map(x, y - 1, map, size);
+	closed &= is_closed_map(x, y + 1, map, size);
+	closed &= is_closed_map(x - 1, y, map, size);
+	closed &= is_closed_map(x + 1, y, map, size);
+	return (closed);
+}
+
+bool	check_closed_map(char **map, int size)
+{
+	int	player[2];
+	int	x_y[2];
+
+	player[0] = -1;
+	player[1] = -1;
+	x_y[0] = 0;
+	x_y[1] = 0;
+	while (x_y[0] < size && player[0] == -1)
 	{
-		if (line[pos] != '1' && line[pos] != ' ' && line[pos] != '\n')
-			return (false);
-		pos++;
+		x_y[1] = 0;
+		while (x_y[1] < (int)ft_strlen(map[x_y[0]]) && player[0] == -1)
+		{
+			if (map[x_y[0]][x_y[1]] == 'S' || map[x_y[0]][x_y[1]] == 'N' ||
+				map[x_y[0]][x_y[1]] == 'E' || map[x_y[0]][x_y[1]] == 'W')
+			{
+					player[0] = x_y[1];
+					player[1] = x_y[0];
+			}
+			x_y[1]++;
+		}
+		x_y[0]++;
 	}
-	if (line[pos - 2] != '1')
+	if (player[0] == -1)
 		return (false);
-	return (true);
-}
-
-static bool	line_are_closed(char *line)
-{
-	int	pos;
-
-	pos = 0;
-	while (line[pos] == ' ')
-		pos++;
-	if (line[pos] != '1')
-		return (false);
-	while (line[pos])
-		pos++;
-	if (line[pos - 2] != '1')
-		return (false);
-	return (true);
-}
-
-bool	check_line(char *line, int i, t_parse *data)
-{
-	if (i == 0)
-		return (all_line_are_closed(line));
-	else if (i == data->map_length)
-		return (all_line_are_closed(line));
-	else
-		return (line_are_closed(line));
+	return (is_closed_map(player[0], player[1], map, size));
 }

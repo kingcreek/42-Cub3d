@@ -1,9 +1,0 @@
-
-
-//need to fix//
-
-Fix diagonal direction: when i press ( w + (d or a)) some with backward, the sum of velocity increase x2
-need divide speed multiplier /2 if one of both keys are pressed, but not when i press both
-
-
-//crash when first item in each line are not 1, first line or last line are not 1

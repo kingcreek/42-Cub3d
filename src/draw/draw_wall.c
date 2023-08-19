@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:58:47 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 13:52:08 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:59:22 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ static void	fill_texture(t_game *game, t_w_vars *vars)
 		vars->wall_x = game->player.pos_y + vars->perp_wall_dist
 			* vars->ray_dir_y;
 	vars->wall_x -= floor(vars->wall_x);
-	vars->tex_x = (int)(vars->wall_x * (double)texWidth);
+	vars->tex_x = (int)(vars->wall_x * (double)TEXWIDTH);
 	if (vars->side == 0 && vars->ray_dir_x > 0)
-		vars->tex_x = texWidth - vars->tex_x - 1;
+		vars->tex_x = TEXWIDTH - vars->tex_x - 1;
 	if (vars->side == 1 && vars->ray_dir_y < 0)
-		vars->tex_x = texWidth - vars->tex_x - 1;
-	vars->step = 1.0 * texHeight / vars->line_height;
+		vars->tex_x = TEXWIDTH - vars->tex_x - 1;
+	vars->step = 1.0 * TEXHEIGHT / vars->line_height;
 	vars->tex_pos = (vars->draw_start - W_HEIGH / 2
 			+ vars->line_height / 2) * vars->step;
 }
@@ -88,7 +88,7 @@ static void	fill_buffer(t_game *game, t_w_vars *vars, int x, int y)
 	int	color;
 	int	tex_y;
 
-	tex_y = (int)vars->tex_pos & (texHeight - 1);
+	tex_y = (int)vars->tex_pos & (TEXHEIGHT - 1);
 	vars->tex_pos += vars->step;
 	vars->tex_num = 0;
 	if (vars->side == 0 && vars->ray_dir_x > 0)
@@ -97,7 +97,7 @@ static void	fill_buffer(t_game *game, t_w_vars *vars, int x, int y)
 		vars->tex_num = 2;
 	else if (vars->side == 1 && vars->ray_dir_y > 0)
 		vars->tex_num = 1;
-	color = game->texture[vars->tex_num][texHeight * tex_y + vars->tex_x];
+	color = game->texture[vars->tex_num][TEXHEIGHT * tex_y + vars->tex_x];
 	if (vars->side == 1)
 		color = (color >> 1) & 8355711;
 	game->zbuffer[y][W_WIDTH - x - 1] = color;
@@ -124,4 +124,5 @@ void	draw_wall(t_game *game)
 		}
 		x++;
 	}
+	draw_minimap(game);
 }

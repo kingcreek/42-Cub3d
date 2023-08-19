@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 01:30:59 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 17:19:28 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:13:33 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,32 @@
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
 # include "structs.h"
-# include "camera.h"
-# include "minimap.h"
 
 // Define la anchura y altura de la imagen que se va a mostrar
-#define texWidth 64
-#define texHeight 64
+# define TEXWIDTH	64
+# define TEXHEIGHT	64
 
-#define mapWidth 24
-#define mapHeight 24
+# define MAPWIDTH	24
+# define MAPHEIGHT	24
 
 // Define la anchura y altura de la ventana de visualización
-#define W_WIDTH 800 //W_WIDTH
-#define W_HEIGH 600 //W_HEIGH
+# define W_WIDTH 800
+# define W_HEIGH 600
 
 //Definitions to xml hook
 # define PLAYER_SPEED		0.05
 # define ROTATION_SPEED		0.05
-# define KEY_PRESS_MASK		(1L<<0)
-# define KEY_RELEASE_MASK	(1L<<1)
 
 // Directions
-# define KEY_ESC			65307
-# define KEY_UP				65362
-# define KEY_DOWN			65364
-# define KEY_RIGHT			65363
-# define KEY_LEFT			65361
-# define KEY_W				119
-# define KEY_A				97
-# define KEY_S				115
-# define KEY_D				100
+# define KEY_ESC			53
+# define KEY_UP				126
+# define KEY_DOWN			125
+# define KEY_RIGHT			124
+# define KEY_LEFT			123
+# define KEY_W				13
+# define KEY_A				0
+# define KEY_S				1
+# define KEY_D				2
 # define X_EVENT_KEY_PRESS	2
 # define X_EVENT_KEY_EXIT	17
 
@@ -63,12 +59,18 @@
 # define ROT_SPEED		0.02
 # define FOV_ANGLE 		60.0
 
+// Minimap
+# define MINIMAP_SCALE	10
+# define PLAYER_COLOR	0xFF0000
+# define PLAYER_SIZE	5
+
 /* INIT */
 bool	initialize(t_game *game, char **argv);
+int		exit_game(t_game *game);
 
 /* ERROR */
-void	error(char * msg);
-void	exit_error(char * msg);
+void	error(char *msg);
+void	exit_error(char *msg);
 
 /* INPUT */
 int		key_press(int key, t_game *game);
@@ -85,8 +87,9 @@ int		mapcheck(char **map);
 
 /* DRAW */
 void	draw_floor_ceiling(t_game *game);
-void 	draw_wall(t_game *game);
+void	draw_wall(t_game *game);
 void	perform_dda(t_game *game, t_w_vars *vars);
+void	draw_minimap(t_game *game);
 
 /* UTILS */
 bool	arg_check(int argc, char **argv);
@@ -126,8 +129,8 @@ void	save_texture_to_data(char *file, t_parse *data, char option);
 bool	init_images(t_game *game, t_parse *data);
 
 /* MAP VALIDATING */
+bool	is_only_digit(char *str);
 char	*get_line(int fd, char *line);
-bool	check_line(char *line, int i, t_parse *data);
 int		line_has_invalid_chars(char *line);
 int		map_checks(t_parse *data, int i, t_game *game);
 int		line_cotains_only_spaces(char *line);
@@ -136,13 +139,14 @@ int		map_has_multiple_players_or_none(char c, char option);
 int		map_validathor(t_parse *data, int fd, t_game *game);
 void	get_map_length(int fd, char *map_file, t_parse *data);
 void	free_char_array(char **array);
+void	free_int_array(int **array);
+void	free_texture_array(int **array);
 int		it_can_be_opened(char *file);
+bool	check_closed_map(char **map, int size);
+bool	perform_checks(t_parse *data, t_game *game, int i, char **tmp_map);
 
 /* UTILS */
 char	*copy_map_line_fixed(char *content, t_parse *data);
 void	ft_print_2d_char_array(char **array_2d);
-
-/* BONUS */
-void update_with_cursor(t_game *game);
 
 #endif

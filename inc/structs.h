@@ -6,14 +6,14 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 02:29:28 by imurugar          #+#    #+#             */
-/*   Updated: 2023/06/01 20:32:34 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:42:11 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img;
 	int		*data;
@@ -28,36 +28,26 @@ typedef struct	s_img
 typedef struct s_map
 {
 	char	**map;
-	int		map_width;
-	int		map_height;
 	int		floor_color;
 	int		ceil_color;
 	void	*n_wall;
 	void	*s_wall;
 	void	*e_wall;
 	t_img	w_wall;
-}  			 t_map;
+}			t_map;
 
-/*
 typedef struct s_player
 {
-    double x;
-    double y;
-    double angle;
-}	t_player;
-*/
-typedef struct	s_player
-{
-	double pos_x;
-	double pos_y;
-	double dir_x;
-	double dir_y;
-	double plane_x;
-	double plane_y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }			t_player;
 
 //Imput keys
-typedef struct	s_keys
+typedef struct s_keys
 {
 	int		key_a;
 	int		key_w;
@@ -65,19 +55,17 @@ typedef struct	s_keys
 	int		key_d;
 	int		key_left;
 	int		key_right;
-	
 }			t_keys;
 // Define la estructura de datos para el juego
-typedef struct	s_game
+typedef struct s_game
 {
-	
 	void		*mlx;
 	void		*win;
 	t_keys		keys;
 	t_img		img;
 	t_player	player;
 	t_map		map;
-	int			**zbuffer;//[600][800];
+	int			**zbuffer;
 	int			**texture;
 	char		**texture_path;
 }				t_game;
@@ -117,7 +105,7 @@ typedef struct s_w_vars
 	int		hit;
 	int		side;
 	int		line_height;
-	int 	draw_end;
+	int		draw_end;
 	int		draw_start;
 	int		tex_num;
 	double	wall_x;
@@ -126,7 +114,7 @@ typedef struct s_w_vars
 	double	tex_pos;
 }		t_w_vars;
 
-typedef struct	s_parse
+typedef struct s_parse
 {
 	int		reading_pos;
 	int		error;
