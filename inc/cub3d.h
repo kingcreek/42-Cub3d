@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 01:30:59 by imurugar          #+#    #+#             */
-/*   Updated: 2023/08/19 20:13:33 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:54:45 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		line_cotains_only_spaces(char *line);
 void	get_player_pos(char **map, t_game *game);
 int		map_has_multiple_players_or_none(char c, char option);
 int		map_validathor(t_parse *data, int fd, t_game *game);
-void	get_map_length(int fd, char *map_file, t_parse *data);
+void	get_map_length(char *line, int fd, char *map_file, t_parse *data);
 void	free_char_array(char **array);
 void	free_int_array(int **array);
 void	free_texture_array(int **array);

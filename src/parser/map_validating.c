@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:04 by imurugar          #+#    #+#             */
-/*   Updated: 2023/08/19 22:36:40 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:55:19 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,8 @@ int	map_validathor(t_parse *data, int fd, t_game *game)
 }
 
 // skip lines with only space on them
-void	get_map_length(int fd, char *map_file, t_parse *data)
+void	get_map_length(char *line, int fd, char *map_file, t_parse *data)
 {
-	char	*line;
-
-	line = get_next_line(fd);
 	while (line != NULL && line_cotains_only_spaces(line) == true)
 	{
 		free(line);

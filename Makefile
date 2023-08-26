@@ -6,7 +6,7 @@
 #    By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 01:23:03 by imurugar          #+#    #+#              #
-#    Updated: 2023/08/19 22:14:59 by imurugar         ###   ########.fr        #
+#    Updated: 2023/08/23 17:44:36 by imurugar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,13 +65,13 @@ MLX_PATH = ${MLX_DIR}/libmlx.a
 
 # /* ~~~~~~~ TESTING FLAGS ~~~~~~~ */
 SANITIZE =
-#SANITIZE = -fsanitize=address
+SANITIZE = -fsanitize=address
 
 # /* ~~~~~~~ COMPILING INFO ~~~~~~~ */
 GCC = gcc
 CFLAGS = -Wall -Werror -Wextra -g3 $(SANITIZE)
-MFLAGS = -L ${MLX_DIR} -lmlx -lXext -lX11 -lm -lbsd
-#MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
+#MFLAGS = -L ${MLX_DIR} -lmlx -lXext -lX11 -lm -lbsd
+MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
 LFLAGS:= -L $(LIBFT_DIR) -lft
 
 # /* ~~~~~~~ OTHER ~~~~~~~ */

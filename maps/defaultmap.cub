@@ -1,22 +1,30 @@
-
-
 C     255,255,0
-
 NO                 ./textures/bluestone.xpm
+
+
+
+
+
+
+
+
+
+
+
+
+
 SO   ./textures/redbrick.xpm
+
+
 
 
 
 WE   ./textures/purplestone.xpm
 
+
 EA          ./textures/greystone.xpm
 
 F     220,255,255
-
-
-
-
-
 
         1111111111111111111111111
         10000000001100000000000W1

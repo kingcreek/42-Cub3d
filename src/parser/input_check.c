@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 06:58:00 by imurugar          #+#    #+#             */
-/*   Updated: 2023/08/19 22:48:18 by imurugar         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:56:48 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,15 @@ int	validate_content(char *map_file, t_parse *data, t_game *game)
 	while (line != NULL)
 	{
 		if (contains_valid_objects(line, data) == true)
-		{
-			free(line);
 			break ;
-		}
 		data->reading_pos++;
 		free(line);
 		line = get_next_line(fd);
 	}
 	if (line == NULL)
 		exit_error("Error:\nMissing Attributes");
-	get_map_length(fd, map_file, data);
-	if (map_validathor(data, fd, game) == false
-		|| data->error == true)
+	get_map_length(line, fd, map_file, data);
+	if (map_validathor(data, fd, game) == false || data->error == true)
 		exit_error("Error:\nInvalid Map");
 	return (close(fd), true);
 }
