@@ -6,7 +6,7 @@
 #    By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 01:23:03 by imurugar          #+#    #+#              #
-#    Updated: 2023/08/23 17:44:36 by imurugar         ###   ########.fr        #
+#    Updated: 2024/02/05 21:14:19 by imurugar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,19 +59,28 @@ LIBFT_MAKE = Makefile
 LIBFT_PATH = ${LIBFT_DIR}/libft.a
 
 # /* ~~~~~~~ INCLUDING MINILIBX ~~~~~~~ */
-MLX_DIR = ./minilibx
+
+ifeq ($(UNAME), Darwin)
+	MLX_DIR = ./minilibx
+else
+	MLX_DIR = ./minilibx-linux
+endif
 MLX_MAKE = Makefile
 MLX_PATH = ${MLX_DIR}/libmlx.a
 
 # /* ~~~~~~~ TESTING FLAGS ~~~~~~~ */
 SANITIZE =
-SANITIZE = -fsanitize=address
+SANITIZE = -fsanitize=address -g3
 
 # /* ~~~~~~~ COMPILING INFO ~~~~~~~ */
+UNAME := $(shell uname)
 GCC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 $(SANITIZE)
-#MFLAGS = -L ${MLX_DIR} -lmlx -lXext -lX11 -lm -lbsd
-MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
+CFLAGS = -Wall -Werror -Wextra $(SANITIZE)
+ifeq ($(UNAME), Darwin)
+	MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
+else
+	MFLAGS = -L ${MLX_DIR} -lmlx -lXext -lX11 -lm -lbsd
+endif
 LFLAGS:= -L $(LIBFT_DIR) -lft
 
 # /* ~~~~~~~ OTHER ~~~~~~~ */

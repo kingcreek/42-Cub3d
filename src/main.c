@@ -6,7 +6,7 @@
 /*   By: imurugar <imurugar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 01:30:44 by imurugar          #+#    #+#             */
-/*   Updated: 2023/08/19 22:19:13 by imurugar         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:59:37 by imurugar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main_loop(t_game *game)
 	process_ws_position(game, &game->player);
 	process_ad_position(game, &game->player);
 	process_angle(game, &game->player);
+		
 	return (0);
 }
 
@@ -83,7 +84,12 @@ int	main(int argc, char **argv)
 		&game.img.size_l, &game.img.endian);
 	mlx_loop_hook(game.mlx, &main_loop, &game);
 	mlx_hook(game.win, 17, 0, exit_game, &game);
-	mlx_hook(game.win, 2, 0L, key_press, &game);
-	mlx_hook(game.win, 3, 0L, key_release, &game);
+	#ifdef __APPLE__
+		mlx_hook(game.win, 2, 0L, key_press, &game);
+		mlx_hook(game.win, 3, 0L, key_release, &game);
+	#else
+		mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+		mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+	#endif
 	mlx_loop(game.mlx);
 }
